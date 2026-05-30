@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # 部署后把下面的域名替换成你自己的真实域名
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://qingtu.top/sitemap.xml
