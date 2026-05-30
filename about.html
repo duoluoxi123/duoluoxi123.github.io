@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于我们 - 轻图压缩</title>
+  <meta name="description" content="了解轻图压缩——一个免费、注重隐私的在线图片压缩工具，所有处理均在浏览器本地完成。" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-logo">🗜️</span><span class="brand-name">轻图<span class="brand-sub">压缩</span></span></a>
+      <nav class="site-nav">
+        <a href="index.html">压缩工具</a>
+        <a href="about.html" class="active">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="page">
+      <h1>关于我们</h1>
+      <p>轻图压缩是一款<strong>免费、注重隐私</strong>的在线图片处理工具。我们相信，处理图片这件小事，不应该让你担心隐私泄露，也不应该让你付费或注册。</p>
+
+      <h2>我们的理念</h2>
+      <p>市面上很多“在线图片压缩”工具会把你的图片上传到它们的服务器再处理。这意味着你的证件照、合同截图、个人照片都可能被第三方存储。轻图压缩采用浏览器本地处理技术（HTML5 Canvas），<strong>你的图片从始至终都只在你自己的设备上，从不上传</strong>。</p>
+
+      <h2>我们提供什么</h2>
+      <ul>
+        <li>JPG / PNG / WebP 图片的批量压缩</li>
+        <li>多种格式之间的互相转换</li>
+        <li>自定义压缩质量与最大尺寸</li>
+        <li>压缩前后体积对比与一键打包下载</li>
+      </ul>
+
+      <h2>为什么免费</h2>
+      <p>本站通过页面中的广告维持服务器与域名等运营成本，因此可以对所有用户永久免费开放。如果这个工具帮到了你，欢迎分享给更多有需要的朋友。</p>
+
+      <p><a href="index.html">← 返回压缩工具</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

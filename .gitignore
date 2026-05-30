@@ -1,0 +1,9 @@
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+*.log
+
+# 本地抓取/临时文件（不需要进仓库）
+weixin_article.html
+article_text.txt
+*.tmp
