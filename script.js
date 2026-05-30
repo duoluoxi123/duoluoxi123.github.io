@@ -89,9 +89,19 @@
           (blob) => {
             if (!blob) return reject(new Error("压缩失败"));
             if (item.url) URL.revokeObjectURL(item.url);
-            item.blob = blob;
-            item.url = URL.createObjectURL(blob);
-            item.name = baseName(item.file.name) + "_compressed." + extFor(format.value);
+            // 关键修复：已被压缩过的小图，重新编码后体积常常不降反升。
+            // 此时保留原图，绝不输出比原图更大的文件。
+            if (blob.size >= item.file.size) {
+              item.blob = item.file;        // 直接沿用原图字节
+              item.optimized = true;         // 标记：已是最优，保留原图
+              item.url = URL.createObjectURL(item.file);
+              item.name = item.file.name;    // 保留原文件名
+            } else {
+              item.blob = blob;
+              item.optimized = false;
+              item.url = URL.createObjectURL(blob);
+              item.name = baseName(item.file.name) + "_compressed." + extFor(format.value);
+            }
             resolve(item);
           },
           format.value,
@@ -138,12 +148,18 @@
       const meta = document.createElement("div");
       meta.className = "result-meta";
       if (item.blob) {
-        const saved = Math.max(0, Math.round((1 - item.blob.size / item.file.size) * 100));
-        meta.innerHTML =
-          formatBytes(item.file.size) +
-          '<span class="arrow">→</span>' +
-          formatBytes(item.blob.size) +
-          ' <span class="save">省 ' + saved + "%</span>";
+        if (item.optimized) {
+          meta.innerHTML =
+            formatBytes(item.file.size) +
+            ' <span class="save">已是最优 · 保留原图</span>';
+        } else {
+          const saved = Math.max(0, Math.round((1 - item.blob.size / item.file.size) * 100));
+          meta.innerHTML =
+            formatBytes(item.file.size) +
+            '<span class="arrow">→</span>' +
+            formatBytes(item.blob.size) +
+            ' <span class="save">省 ' + saved + "%</span>";
+        }
       } else {
         meta.textContent = formatBytes(item.file.size) + " · 待压缩";
       }
@@ -174,9 +190,11 @@
     const before = done.reduce((s, i) => s + i.file.size, 0);
     const after = done.reduce((s, i) => s + i.blob.size, 0);
     const saved = Math.max(0, Math.round((1 - after / before) * 100));
+    const keptCount = done.filter((i) => i.optimized).length;
     summary.hidden = false;
-    summary.textContent =
-      `已压缩 ${done.length} 张图片：${formatBytes(before)} → ${formatBytes(after)}，共节省 ${saved}%`;
+    let text = `已处理 ${done.length} 张图片：${formatBytes(before)} → ${formatBytes(after)}，共节省 ${saved}%`;
+    if (keptCount > 0) text += `（其中 ${keptCount} 张已是最优，保留原图）`;
+    summary.textContent = text;
   }
 
   // ---- 打包下载（逐个触发下载，无需第三方库）----
