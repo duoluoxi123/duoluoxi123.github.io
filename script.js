@@ -9,6 +9,7 @@
   const qualityVal = document.getElementById("qualityVal");
   const format = document.getElementById("format");
   const maxWidth = document.getElementById("maxWidth");
+  const targetSize = document.getElementById("targetSize");
   const compressBtn = document.getElementById("compressBtn");
   const downloadAllBtn = document.getElementById("downloadAllBtn");
   const clearBtn = document.getElementById("clearBtn");
@@ -60,53 +61,99 @@
 
   quality.addEventListener("input", () => { qualityVal.textContent = quality.value; });
 
+  // ---- 把图片按指定尺寸/格式/质量编码为 Blob ----
+  function encode(img, w, h, mime, q) {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      // JPG 不支持透明，填白底，避免透明区域变黑
+      if (mime === "image/jpeg") {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, w, h);
+      }
+      ctx.drawImage(img, 0, 0, w, h);
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("编码失败"))), mime, q);
+    });
+  }
+
+  // ---- 目标大小压缩：二分质量 + 自动缩小尺寸，尽量压到 targetBytes 以内 ----
+  async function compressToTarget(img, baseW, baseH, mime, targetBytes) {
+    const lossy = mime === "image/jpeg" || mime === "image/webp";
+    let w = baseW, h = baseH;
+    let smallest = null; // 全局最小（达不到目标时兜底）
+    for (let round = 0; round < 9; round++) {
+      if (lossy) {
+        let lo = 0.05, hi = 1.0, found = null;
+        for (let i = 0; i < 7; i++) {
+          const mid = (lo + hi) / 2;
+          const blob = await encode(img, w, h, mime, mid);
+          if (!smallest || blob.size < smallest.size) smallest = blob;
+          if (blob.size <= targetBytes) { found = blob; lo = mid; } else { hi = mid; }
+        }
+        if (found) return { blob: found, hitTarget: true };
+      } else {
+        // PNG 等无损格式：质量参数无效，只能靠缩小尺寸
+        const blob = await encode(img, w, h, mime, 1);
+        if (!smallest || blob.size < smallest.size) smallest = blob;
+        if (blob.size <= targetBytes) return { blob, hitTarget: true };
+      }
+      // 当前尺寸压不到目标 → 缩小尺寸再来一轮
+      w = Math.round(w * 0.8);
+      h = Math.round(h * 0.8);
+      if (w < 40 || h < 40) break;
+    }
+    return { blob: smallest, hitTarget: false };
+  }
+
   // ---- 核心：压缩单张图片 ----
   function compressOne(item) {
     return new Promise((resolve, reject) => {
       const img = new Image();
       const objURL = URL.createObjectURL(item.file);
-      img.onload = function () {
-        let w = img.naturalWidth;
-        let h = img.naturalHeight;
-        const limit = parseInt(maxWidth.value, 10) || 0;
-        if (limit > 0 && w > limit) {
-          h = Math.round((h * limit) / w);
-          w = limit;
+      img.onload = async function () {
+        try {
+          let w = img.naturalWidth;
+          let h = img.naturalHeight;
+          const limit = parseInt(maxWidth.value, 10) || 0;
+          if (limit > 0 && w > limit) {
+            h = Math.round((h * limit) / w);
+            w = limit;
+          }
+          const mime = format.value;
+          const targetKB = parseInt(targetSize.value, 10) || 0;
+
+          let outBlob;
+          if (targetKB > 0) {
+            const r = await compressToTarget(img, w, h, mime, targetKB * 1024);
+            outBlob = r.blob;
+            item.hitTarget = r.hitTarget;
+          } else {
+            const q = parseInt(quality.value, 10) / 100;
+            outBlob = await encode(img, w, h, mime, q);
+            item.hitTarget = null;
+          }
+          URL.revokeObjectURL(objURL);
+          if (item.url) URL.revokeObjectURL(item.url);
+
+          // 绝不输出比原图更大的文件：若重新编码反而更大，则保留原图
+          if (!outBlob || outBlob.size >= item.file.size) {
+            item.blob = item.file;
+            item.optimized = true;
+            item.url = URL.createObjectURL(item.file);
+            item.name = item.file.name;
+          } else {
+            item.blob = outBlob;
+            item.optimized = false;
+            item.url = URL.createObjectURL(outBlob);
+            item.name = baseName(item.file.name) + "_compressed." + extFor(mime);
+          }
+          resolve(item);
+        } catch (err) {
+          URL.revokeObjectURL(objURL);
+          reject(err);
         }
-        const canvas = document.createElement("canvas");
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext("2d");
-        // PNG 透明背景保留；JPG 填白底避免透明变黑
-        if (format.value === "image/jpeg") {
-          ctx.fillStyle = "#ffffff";
-          ctx.fillRect(0, 0, w, h);
-        }
-        ctx.drawImage(img, 0, 0, w, h);
-        URL.revokeObjectURL(objURL);
-        const q = parseInt(quality.value, 10) / 100;
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) return reject(new Error("压缩失败"));
-            if (item.url) URL.revokeObjectURL(item.url);
-            // 关键修复：已被压缩过的小图，重新编码后体积常常不降反升。
-            // 此时保留原图，绝不输出比原图更大的文件。
-            if (blob.size >= item.file.size) {
-              item.blob = item.file;        // 直接沿用原图字节
-              item.optimized = true;         // 标记：已是最优，保留原图
-              item.url = URL.createObjectURL(item.file);
-              item.name = item.file.name;    // 保留原文件名
-            } else {
-              item.blob = blob;
-              item.optimized = false;
-              item.url = URL.createObjectURL(blob);
-              item.name = baseName(item.file.name) + "_compressed." + extFor(format.value);
-            }
-            resolve(item);
-          },
-          format.value,
-          q
-        );
       };
       img.onerror = () => { URL.revokeObjectURL(objURL); reject(new Error("无法读取图片")); };
       img.src = objURL;
@@ -154,11 +201,15 @@
             ' <span class="save">已是最优 · 保留原图</span>';
         } else {
           const saved = Math.max(0, Math.round((1 - item.blob.size / item.file.size) * 100));
+          let tail = ' <span class="save">省 ' + saved + "%</span>";
+          if (item.hitTarget === false) {
+            tail = ' <span class="save warn">已压到最小，仍超目标</span>';
+          }
           meta.innerHTML =
             formatBytes(item.file.size) +
             '<span class="arrow">→</span>' +
             formatBytes(item.blob.size) +
-            ' <span class="save">省 ' + saved + "%</span>";
+            tail;
         }
       } else {
         meta.textContent = formatBytes(item.file.size) + " · 待压缩";

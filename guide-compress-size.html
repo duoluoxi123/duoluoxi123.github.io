@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>如何把图片压缩到指定大小（100KB/50KB/20KB 以内）- 轻图</title>
+  <meta name="description" content="考试报名、简历、各类上传表单常限制图片大小。本文教你用浏览器本地工具把照片一键压缩到 100KB、50KB、20KB 等指定大小以内，附不同场景推荐值。" />
+  <meta name="keywords" content="图片压缩到指定大小,照片压缩到20kb,图片压缩到100kb,照片压缩到50kb,压缩照片大小,证件照压缩" />
+  <link rel="canonical" href="https://qingtu.top/guide-compress-size.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "如何把图片压缩到指定大小",
+    "step": [
+      { "@type": "HowToStep", "text": "打开轻图压缩，上传或拖入需要压缩的图片。" },
+      { "@type": "HowToStep", "text": "在「压缩到指定大小（KB）」里填写目标大小，例如 20。" },
+      { "@type": "HowToStep", "text": "点击开始压缩，工具会自动调节质量与尺寸压到该大小以内。" },
+      { "@type": "HowToStep", "text": "下载压缩后的图片。" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-logo">🗜️</span><span class="brand-name">轻图<span class="brand-sub">压缩</span></span></a>
+      <nav class="site-nav">
+        <a href="index.html">压缩工具</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="page">
+      <h1>如何把图片压缩到指定大小（100KB / 50KB / 20KB 以内）</h1>
+      <p>很多场景对上传的图片有<strong>明确的大小限制</strong>：考试报名要求证件照不超过 20KB，招聘网站要求简历照片小于 100KB，政务/银行系统常常限制在 50KB 以内。图片超过限制就传不上去，是非常常见的烦恼。</p>
+      <p>这篇教程教你用 <a href="index.html">轻图压缩</a> 把图片<strong>精确压到指定大小以内</strong>，全程在浏览器本地完成，图片不上传服务器。</p>
+
+      <h2>最快的方法：用「压缩到指定大小」一键压</h2>
+      <ol>
+        <li>打开 <a href="index.html">轻图压缩工具</a>，把图片拖进去（或点击选择，支持一次多张）。</li>
+        <li>在「<strong>压缩到指定大小（KB，0=不限）</strong>」里填上你要的目标，比如报名要求 ≤20KB 就填 <strong>20</strong>。</li>
+        <li>点「开始压缩」。工具会<strong>自动二分调节质量、必要时缩小尺寸</strong>，把文件压到目标以内。</li>
+        <li>压好后点「下载」保存即可。</li>
+      </ol>
+      <p>填写了目标大小后，上面的「压缩质量」会被忽略——因为工具会自动帮你找到刚好满足大小的质量，不用你手动反复试。</p>
+
+      <h2>压不到目标大小怎么办？</h2>
+      <p>如果图片信息量很大（比如高清风景照要压到 20KB），仅靠降低质量可能不够，可以再配合下面两招：</p>
+      <ul>
+        <li><strong>降低「最大宽度」</strong>：把尺寸缩小（例如填 800 或 500），体积会大幅下降。证件照、头像本来就不需要很大。</li>
+        <li><strong>输出选 JPG 或 WebP</strong>：这两种是有损格式，比 PNG 更容易压到很小。PNG 是无损的，主要靠缩小尺寸来减小体积。</li>
+      </ul>
+      <p>如果实在压不到，工具会显示「已压到最小，仍超目标」，并给出它能做到的最小体积——这时把尺寸再调小一些通常就能达标。</p>
+
+      <h2>不同场景的推荐目标值</h2>
+      <ul>
+        <li><strong>证件照上传（考试/报名）</strong>：常见要求 ≤ 20–50KB，格式 JPG。</li>
+        <li><strong>简历 / 求职头像</strong>：≤ 100KB 一般够用，清晰度也不错。</li>
+        <li><strong>网页配图 / 商品图</strong>：100–300KB，兼顾清晰与加载速度。</li>
+        <li><strong>论坛 / 社交分享</strong>：200–500KB，基本随意。</li>
+      </ul>
+      <p>具体以对方系统的要求为准，拿不准就按它给的上限填，宁可小一点。</p>
+
+      <h2>常见问题</h2>
+      <h3>压缩会把我的照片上传到你们服务器吗？</h3>
+      <p>不会。轻图压缩基于浏览器的 Canvas 技术，<strong>所有处理都在你本地设备完成</strong>，图片不会被上传或保存，证件照、身份证照片也能放心处理。</p>
+      <h3>为什么有的图压到目标后看起来糊了？</h3>
+      <p>把文件压得很小，本质是丢弃图像细节，体积越小、画质越低，这是所有压缩工具的共性。建议在“能满足大小要求”的前提下，尽量给大一点的目标值。</p>
+
+      <p class="guide-related">相关阅读：<a href="guide-image-formats.html">JPG / PNG / WebP 区别与选择</a> · <a href="guide-id-photo.html">证件照尺寸与底色要求大全</a></p>
+      <p><a href="index.html">→ 立即去压缩图片</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

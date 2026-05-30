@@ -101,6 +101,11 @@
           <input type="number" id="maxWidth" min="0" value="0" placeholder="0" />
           <small>等比例缩放，常用于压到 1920 以内。</small>
         </div>
+        <div class="control">
+          <label for="targetSize">压缩到指定大小（KB，0=不限）</label>
+          <input type="number" id="targetSize" min="0" value="0" placeholder="如 20" />
+          <small>填了就自动调质量/尺寸，压到该大小以内（JPG/WebP 效果最佳；此时忽略上面的质量值）。</small>
+        </div>
         <div class="control control-actions">
           <button id="compressBtn" class="btn btn-primary">开始压缩</button>
           <button id="downloadAllBtn" class="btn btn-secondary" hidden>打包下载全部</button>
@@ -137,6 +142,25 @@
         <summary>真的完全免费吗？</summary>
         <p>是的，永久免费、无次数限制、无需注册。本站通过页面广告维持运营，感谢你的理解与支持。</p>
       </details>
+    </section>
+
+    <!-- 实用指南（内链 + SEO 内容） -->
+    <section class="guides">
+      <h2>实用指南</h2>
+      <div class="guide-cards">
+        <a class="guide-card" href="guide-compress-size.html">
+          <div class="gc-title">如何把图片压缩到指定大小</div>
+          <div class="gc-desc">把照片一键压到 100KB / 50KB / 20KB 以内，附不同场景推荐值。</div>
+        </a>
+        <a class="guide-card" href="guide-image-formats.html">
+          <div class="gc-title">JPG / PNG / WebP 区别与选择</div>
+          <div class="gc-desc">三种格式有损无损、透明、体积对比，照片/截图该用哪种。</div>
+        </a>
+        <a class="guide-card" href="guide-id-photo.html">
+          <div class="gc-title">证件照尺寸与底色大全</div>
+          <div class="gc-desc">一寸/二寸像素对照、白蓝红底适用场景与大小要求。</div>
+        </a>
+      </div>
     </section>
   </main>
 
