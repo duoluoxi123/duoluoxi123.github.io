@@ -10,3 +10,4 @@ Thumbs.db
 weixin_article.html
 article_text.txt
 *.tmp
+_tmp_*
