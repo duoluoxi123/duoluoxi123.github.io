@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  轻图 · 工具页模板（复制本文件 → 改名 → 替换所有【替换】标记即可新增一个工具）
+  规则：
+    1. 纯静态、纯前端，所有处理放浏览器本地，不上传服务器。
+    2. 每个工具一个 html + 一个同名 js（如 id-photo.html + id-photo.js）。
+    3. 复用 styles.css；工具专属样式可在 styles.css 末尾追加。
+    4. 别忘了：把新页加进 sitemap.xml，并在 index.html 的“更多工具”里加卡片。
+  ============================================================
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 【替换】标题：把核心搜索词放前面，结尾统一 “- 轻图” -->
+  <title>【替换】工具名称 - 轻图</title>
+  <!-- 【替换】描述：一句话说清这个工具做什么 + 关键词；强调本地处理不上传 -->
+  <meta name="description" content="【替换】工具描述（含关键词）。所有处理在浏览器本地完成，不上传服务器。" />
+  <!-- 【替换】关键词：3~8 个目标搜索词，逗号分隔 -->
+  <meta name="keywords" content="【替换】关键词1,关键词2,关键词3" />
+  <!-- 【替换】canonical：本页完整网址（文件名改成实际文件名） -->
+  <link rel="canonical" href="https://qingtu.top/【替换】filename.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ============================================================= -->
+  <!-- 【广告 · AdSense】审核通过后，取消下一行注释并填入你的 pub-ID（每个页面都要放） -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  <!-- ============================================================= -->
+</head>
+<body>
+  <!-- ===== 统一顶部导航（各页保持一致） ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-logo">🗜️</span><span class="brand-name">轻图<span class="brand-sub">压缩</span></span></a>
+      <nav class="site-nav">
+        <a href="index.html">图片压缩</a>
+        <a href="id-photo.html">证件照</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== 顶部广告位（审核通过后把广告代码贴进 .ad-slot 内部） ===== -->
+  <div class="container">
+    <div class="ad-slot ad-banner" data-ad="top-banner"><span class="ad-label">广告位 · 顶部横幅（自适应）</span></div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <!-- 【替换】H1 大标题：一句话点题，含关键词 -->
+      <h1>【替换】工具大标题</h1>
+      <!-- 【替换】副标题：强调免费/本地/不上传等卖点 -->
+      <p class="subtitle">【替换】一句话说明。<strong>所有处理在浏览器本地完成，不上传服务器。</strong></p>
+    </section>
+
+    <section class="tool">
+      <!-- ============================================== -->
+      <!-- 【替换】这里放本工具的具体界面（上传框、参数、按钮、结果区） -->
+      <!-- ============================================== -->
+    </section>
+
+    <!-- ===== 内容中部广告位 ===== -->
+    <div class="ad-slot ad-inline" data-ad="in-content"><span class="ad-label">广告位 · 信息流（自适应）</span></div>
+
+    <!-- ===== FAQ：3~5 个与本工具相关的真实问答（利于 SEO 收录与 AdSense 内容质量） ===== -->
+    <section class="faq">
+      <h2>常见问题</h2>
+      <details open>
+        <summary>【替换】这个工具会上传我的文件吗？</summary>
+        <p>不会。所有处理都在你的浏览器本地完成，文件不会上传、保存或泄露。</p>
+      </details>
+      <!-- 【替换】再补 2~4 个针对本工具的问答 -->
+    </section>
+  </main>
+
+  <!-- ===== 统一页脚 ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="index.html">图片压缩</a>
+        <a href="id-photo.html">证件照</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩 · 图片本地处理，安全无忧</p>
+    </div>
+  </footer>
+
+  <!-- 【替换】本工具的脚本文件名 -->
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="【替换】filename.js"></script>
+</body>
+</html>
