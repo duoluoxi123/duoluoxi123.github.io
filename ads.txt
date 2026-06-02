@@ -1,4 +1,3 @@
 # Google AdSense ads.txt
-# 申请通过 AdSense 后，把下面这行的 pub-XXXXXXXXXXXXXXXX 替换为你的发布商 ID。
-# 这个文件能防止他人冒用你的广告位，缺少它部分广告可能无法投放。
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# 发布商 ID 已填入；此文件用于防止他人冒用你的广告位。
+google.com, pub-9111319388478060, DIRECT, f08c47fec0942fa0
