@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图片拼接 - 多张图片拼成长图/横向合并，本地不上传 | 轻图</title>
+  <meta name="description" content="免费在线图片拼接工具，把多张截图、照片纵向拼成长图或横向并排合并，可设间距与背景色，支持批量。所有处理在浏览器本地完成，图片不上传服务器，安全又快速。" />
+  <meta name="keywords" content="图片拼接,长图拼接,多张图片合并,截图拼接,聊天记录长图,在线拼图,图片合并" />
+  <link rel="canonical" href="https://qingtu.top/merge.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="图片拼接 - 多张图拼成长图/横向合并" />
+  <meta property="og:description" content="本地把多张截图拼成长图，免费不上传。" />
+  <meta property="og:url" content="https://qingtu.top/merge.html" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9111319388478060" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "轻图 - 图片拼接",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "description": "免费在线图片拼接工具，多张图纵向/横向合并，本地处理不上传。"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">🗜️</span>
+        <span class="brand-name">轻图<span class="brand-sub">压缩</span></span>
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">图片压缩</a>
+        <a href="id-photo.html">证件照</a>
+        <a href="format-convert.html">格式转换</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="ad-slot ad-banner" data-ad="top-banner">
+      <span class="ad-label">广告位 · 顶部横幅（728×90 / 自适应）</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <h1>图片拼接</h1>
+      <p class="subtitle">把多张截图、照片纵向拼成长图，或横向并排合并。<strong>所有处理在你的浏览器本地完成，图片绝不上传服务器。</strong></p>
+      <ul class="hero-badges">
+        <li>🔒 本地处理 · 安全私密</li>
+        <li>📜 长图拼接 · 截图神器</li>
+        <li>🧩 批量合并 · 一键下载</li>
+      </ul>
+    </section>
+
+    <section class="tool">
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" multiple hidden />
+        <div class="dropzone-inner">
+          <div class="dropzone-icon">📁</div>
+          <p class="dropzone-title">把多张图片拖到这里，或<button type="button" id="pickBtn" class="link-btn">点击选择</button></p>
+          <p class="dropzone-hint">支持 JPG / PNG / WebP · 一次选多张 · 按选择顺序拼接</p>
+        </div>
+      </div>
+
+      <div id="inputList"></div>
+
+      <div class="controls" id="controls" hidden>
+        <div class="control">
+          <label for="mgDir">拼接方向</label>
+          <select id="mgDir">
+            <option value="v">纵向拼成长图（截图常用）</option>
+            <option value="h">横向并排合并</option>
+          </select>
+          <small>纵向统一为最窄宽度、横向统一为最矮高度（只缩小，更清晰）。</small>
+        </div>
+        <div class="control">
+          <label for="mgFormat">输出格式</label>
+          <select id="mgFormat">
+            <option value="image/png">PNG（无损，文字截图更清晰）</option>
+            <option value="image/jpeg">JPG（体积更小）</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="mgGap">图片间距（像素）</label>
+          <input type="number" id="mgGap" min="0" value="0" />
+          <small>每张图之间留白的宽度，0 表示紧贴。</small>
+        </div>
+        <div class="control">
+          <label for="mgBg">间距 / 背景色</label>
+          <input type="color" id="mgBg" value="#ffffff" />
+          <small>用于填充间距和留白区域。</small>
+        </div>
+        <div class="control control-actions">
+          <button id="mergeBtn" class="btn btn-primary">开始拼接</button>
+          <button id="clearBtn" class="btn btn-ghost" hidden>清空</button>
+        </div>
+      </div>
+
+      <div class="summary" id="summary" hidden></div>
+      <div id="output"></div>
+    </section>
+
+    <div class="ad-slot ad-inline" data-ad="in-content">
+      <span class="ad-label">广告位 · 信息流（自适应）</span>
+    </div>
+
+    <section class="faq">
+      <h2>常见问题</h2>
+      <details open>
+        <summary>拼接图片会上传到服务器吗？</summary>
+        <p>不会。本工具基于浏览器 Canvas 技术，拼接全程在你本地设备完成，图片不会上传、保存或泄露，处理聊天记录、隐私截图也放心。</p>
+      </details>
+      <details>
+        <summary>可以拼接几张图片？</summary>
+        <p>数量不限，按你选择的顺序拼接。不过图片过多或单张过大时，拼出的长图可能超出浏览器画布上限，这时工具会提示你减少数量或改用横向，缩小后再试。</p>
+      </details>
+      <details>
+        <summary>每张图片宽度不一样会怎样？</summary>
+        <p>纵向拼接时会把所有图片统一到“最窄的那张”的宽度（等比缩小，画面更清晰）；横向拼接时统一到“最矮的那张”的高度。这样拼出来边缘整齐、不糊。</p>
+      </details>
+      <details>
+        <summary>拼接顺序怎么调整？</summary>
+        <p>当前按你添加（选择）的顺序拼接，缩略图上有编号。需要调整顺序时，点“清空”后按目标顺序重新选择图片即可。</p>
+      </details>
+      <details>
+        <summary>拼好的长图太大怎么办？</summary>
+        <p>可以选 JPG 输出减小体积，或拼接后再用 <a href="index.html">图片压缩</a> 压到合适大小。</p>
+      </details>
+    </section>
+
+    <section class="guides">
+      <h2>相关工具与指南</h2>
+      <div class="guide-cards">
+        <a class="guide-card" href="index.html">
+          <div class="gc-title">🗜️ 图片压缩</div>
+          <div class="gc-desc">批量压缩 JPG/PNG/WebP，还能压到指定 KB 大小。</div>
+        </a>
+        <a class="guide-card" href="format-convert.html">
+          <div class="gc-title">🔄 图片格式转换</div>
+          <div class="gc-desc">JPG / PNG / WebP 一键互转，支持批量与质量调节。</div>
+        </a>
+        <a class="guide-card" href="watermark.html">
+          <div class="gc-title">🧱 图片加水印</div>
+          <div class="gc-desc">给照片/证件照加文字水印，支持平铺防盗用。</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩 · 图片本地处理，安全无忧</p>
+    </div>
+  </footer>
+
+  <script src="merge.js"></script>
+</body>
+</html>

@@ -208,6 +208,14 @@ a:hover { text-decoration: underline; }
 .row2-x { color: var(--muted); }
 .idp-thumb { width: 120px; max-height: 180px; height: auto; border-radius: 8px; border: 1px solid var(--border); object-fit: contain; background: #fff; flex-shrink: 0; }
 
+/* ---------- 图片拼接 ---------- */
+.input-thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.input-thumbs .it { position: relative; }
+.input-thumbs img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); background: #fff; }
+.input-thumbs .it-idx { position: absolute; top: 2px; left: 2px; background: rgba(0,0,0,.6); color: #fff; font-size: 11px; line-height: 1.6; border-radius: 6px; padding: 0 6px; }
+.merge-output { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); margin-top: 16px; text-align: center; }
+.merge-preview { display: block; max-width: 100%; max-height: 70vh; width: auto; margin: 0 auto 14px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
   .hero h1 { font-size: 26px; }
