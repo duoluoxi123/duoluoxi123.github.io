@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图片加水印 - 给照片/证件照批量加文字水印，本地不上传 | 轻图</title>
+  <meta name="description" content="免费在线给图片、证件照、身份证添加文字水印（支持平铺防盗用），可调位置、大小、透明度、颜色、角度，支持批量。所有处理在浏览器本地完成，图片不上传服务器，处理证件更放心。" />
+  <meta name="keywords" content="图片加水印,照片加水印,证件照加水印,身份证加水印,在线加水印,批量加水印,水印防盗用,文字水印" />
+  <link rel="canonical" href="https://qingtu.top/watermark.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="图片加水印 - 给证件照批量加防盗用水印" />
+  <meta property="og:description" content="本地给图片/证件照加文字水印，平铺防盗用，免费不上传。" />
+  <meta property="og:url" content="https://qingtu.top/watermark.html" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9111319388478060" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "轻图 - 图片加水印",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "description": "免费在线图片加水印工具，支持证件照平铺防盗用水印，本地处理不上传。"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">🗜️</span>
+        <span class="brand-name">轻图<span class="brand-sub">压缩</span></span>
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">图片压缩</a>
+        <a href="id-photo.html">证件照</a>
+        <a href="format-convert.html">格式转换</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="ad-slot ad-banner" data-ad="top-banner">
+      <span class="ad-label">广告位 · 顶部横幅（728×90 / 自适应）</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <h1>图片加水印</h1>
+      <p class="subtitle">给照片、证件照批量添加文字水印，支持平铺防盗用。<strong>所有处理在你的浏览器本地完成，图片绝不上传服务器，处理证件更放心。</strong></p>
+      <ul class="hero-badges">
+        <li>🔒 本地处理 · 证件不外泄</li>
+        <li>🧱 平铺水印 · 防盗用</li>
+        <li>🖼️ 批量处理 · 一键下载</li>
+      </ul>
+    </section>
+
+    <section class="tool">
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" multiple hidden />
+        <div class="dropzone-inner">
+          <div class="dropzone-icon">📁</div>
+          <p class="dropzone-title">把图片拖到这里，或<button type="button" id="pickBtn" class="link-btn">点击选择</button></p>
+          <p class="dropzone-hint">支持 JPG / PNG / WebP · 可一次选多张</p>
+        </div>
+      </div>
+
+      <div class="controls" id="controls" hidden>
+        <div class="control" style="grid-column: 1 / -1;">
+          <label for="wmText">水印文字</label>
+          <input type="text" id="wmText" value="仅供办理XX业务使用，他用无效" maxlength="40" />
+          <small>建议写明用途和日期，如“仅供办理贷款使用 2026.06”。</small>
+        </div>
+        <div class="control">
+          <label for="wmPos">位置 / 排列</label>
+          <select id="wmPos">
+            <option value="tile">平铺整张（防盗用推荐）</option>
+            <option value="center">居中</option>
+            <option value="br">右下角</option>
+            <option value="bl">左下角</option>
+            <option value="tr">右上角</option>
+            <option value="tl">左上角</option>
+          </select>
+          <small>给证件照防盗用，选“平铺整张”最稳。</small>
+        </div>
+        <div class="control">
+          <label for="wmColor">水印颜色</label>
+          <input type="color" id="wmColor" value="#888888" />
+          <small>浅灰或浅蓝较自然，深色更醒目。</small>
+        </div>
+        <div class="control">
+          <label for="wmSize">大小：<b id="wmSizeVal">4</b></label>
+          <input type="range" id="wmSize" min="1" max="12" value="4" step="1" />
+          <small>数值为占图片短边的百分比。</small>
+        </div>
+        <div class="control">
+          <label for="wmOpacity">透明度：<b id="wmOpacityVal">35</b>%</label>
+          <input type="range" id="wmOpacity" min="5" max="90" value="35" step="1" />
+          <small>越低越淡。防盗用建议 30–50%。</small>
+        </div>
+        <div class="control">
+          <label for="wmAngle">角度：<b id="wmAngleVal">-30</b>°</label>
+          <input type="range" id="wmAngle" min="-60" max="60" value="-30" step="5" />
+          <small>平铺时倾斜更不易被裁掉。</small>
+        </div>
+        <div class="control control-actions">
+          <button id="applyBtn" class="btn btn-primary">添加水印</button>
+          <button id="downloadAllBtn" class="btn btn-secondary" hidden>打包下载全部</button>
+          <button id="clearBtn" class="btn btn-ghost" hidden>清空</button>
+        </div>
+      </div>
+
+      <div class="summary" id="summary" hidden></div>
+      <div class="results" id="results"></div>
+    </section>
+
+    <div class="ad-slot ad-inline" data-ad="in-content">
+      <span class="ad-label">广告位 · 信息流（自适应）</span>
+    </div>
+
+    <section class="faq">
+      <h2>常见问题</h2>
+      <details open>
+        <summary>给身份证、证件照加水印安全吗？会上传吗？</summary>
+        <p>安全。本工具基于浏览器 Canvas 技术，加水印全程在你本地设备完成，<strong>图片不会上传、保存或泄露</strong>。这正是处理身份证、银行卡、合同等敏感图片时最该注意的一点——别把证件传到陌生服务器。</p>
+      </details>
+      <details>
+        <summary>水印能防止证件被盗用吗？</summary>
+        <p>能大大降低被冒用的风险。选择“平铺整张 + 适当透明度 + 倾斜角度”，水印覆盖全图且与内容交叠，他人很难简单抹除。建议水印文字写明<strong>具体用途和日期</strong>，如“仅供办理XX使用”。</p>
+      </details>
+      <details>
+        <summary>支持批量加水印吗？</summary>
+        <p>支持。可一次选择多张图片，设置好水印后点击“添加水印”，再用“打包下载全部”逐张保存，参数对所有图片统一生效。</p>
+      </details>
+      <details>
+        <summary>加水印后图片会变大吗？格式会变吗？</summary>
+        <p>工具会尽量保持原格式（PNG 保持 PNG、JPG 保持 JPG）。PNG 加水印后体积可能略增，JPG 基本不变。若需要更小体积，可再用 <a href="index.html">图片压缩</a> 处理一下。</p>
+      </details>
+      <details>
+        <summary>水印文字可以换成英文或其他内容吗？</summary>
+        <p>可以，水印文字框里随意填写中英文都行，并能调节颜色、大小、透明度和角度，满足不同场景。</p>
+      </details>
+    </section>
+
+    <section class="guides">
+      <h2>相关工具与指南</h2>
+      <div class="guide-cards">
+        <a class="guide-card" href="id-photo.html">
+          <div class="gc-title">🪪 证件照尺寸调整与压缩</div>
+          <div class="gc-desc">裁成一寸/二寸标准尺寸并压到指定大小，本地处理不上传。</div>
+        </a>
+        <a class="guide-card" href="index.html">
+          <div class="gc-title">🗜️ 图片压缩</div>
+          <div class="gc-desc">批量压缩 JPG/PNG/WebP，还能压到指定 KB 大小。</div>
+        </a>
+        <a class="guide-card" href="guide-id-photo.html">
+          <div class="gc-title">证件照尺寸与底色大全</div>
+          <div class="gc-desc">一寸/二寸像素对照、白蓝红底适用场景与大小要求。</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩 · 图片本地处理，安全无忧</p>
+    </div>
+  </footer>
+
+  <script src="watermark.js"></script>
+</body>
+</html>
