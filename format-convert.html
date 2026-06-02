@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图片格式转换 - JPG/PNG/WebP 在线互转，免费不上传 | 轻图</title>
+  <meta name="description" content="免费在线图片格式转换工具，支持 JPG、PNG、WebP 之间任意互转，可批量转换并调节质量。所有处理在浏览器本地完成，图片不上传服务器，安全又快速。" />
+  <meta name="keywords" content="图片格式转换,png转jpg,jpg转png,webp转jpg,jpg转webp,png转webp,在线格式转换,批量转换图片" />
+  <link rel="canonical" href="https://qingtu.top/format-convert.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="图片格式转换 - JPG/PNG/WebP 在线互转" />
+  <meta property="og:description" content="浏览器本地转换 JPG/PNG/WebP，免费批量，图片不上传。" />
+  <meta property="og:url" content="https://qingtu.top/format-convert.html" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9111319388478060" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "轻图 - 图片格式转换",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "description": "免费在线图片格式转换工具，支持 JPG/PNG/WebP 互转，本地处理不上传。"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">🗜️</span>
+        <span class="brand-name">轻图<span class="brand-sub">压缩</span></span>
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">图片压缩</a>
+        <a href="id-photo.html">证件照</a>
+        <a href="format-convert.html" class="active">格式转换</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="ad-slot ad-banner" data-ad="top-banner">
+      <span class="ad-label">广告位 · 顶部横幅（728×90 / 自适应）</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <h1>图片格式转换</h1>
+      <p class="subtitle">JPG / PNG / WebP 一键互转，支持批量。<strong>所有处理在你的浏览器本地完成，图片绝不上传服务器。</strong></p>
+      <ul class="hero-badges">
+        <li>🔒 本地处理 · 安全私密</li>
+        <li>♾️ 永久免费 · 无限次数</li>
+        <li>🔄 批量转换 · 一键下载</li>
+      </ul>
+    </section>
+
+    <section class="tool">
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" multiple hidden />
+        <div class="dropzone-inner">
+          <div class="dropzone-icon">📁</div>
+          <p class="dropzone-title">把图片拖到这里，或<button type="button" id="pickBtn" class="link-btn">点击选择</button></p>
+          <p class="dropzone-hint">支持 JPG / PNG / WebP · 可一次选多张</p>
+        </div>
+      </div>
+
+      <div class="controls" id="controls" hidden>
+        <div class="control">
+          <label for="format">转换为</label>
+          <select id="format">
+            <option value="image/jpeg">JPG（兼容性最好，体积小）</option>
+            <option value="image/png">PNG（无损 / 支持透明）</option>
+            <option value="image/webp">WebP（同画质体积更小）</option>
+          </select>
+          <small>例如 PNG 截图转 JPG、照片转 WebP 省空间。</small>
+        </div>
+        <div class="control" id="qualityRow">
+          <label for="quality">质量：<b id="qualityVal">90</b>%</label>
+          <input type="range" id="quality" min="10" max="100" value="90" step="1" />
+          <small>仅 JPG / WebP 有效。90% 以上几乎看不出差别。</small>
+        </div>
+        <div class="control control-actions">
+          <button id="convertBtn" class="btn btn-primary">开始转换</button>
+          <button id="downloadAllBtn" class="btn btn-secondary" hidden>打包下载全部</button>
+          <button id="clearBtn" class="btn btn-ghost" hidden>清空</button>
+        </div>
+      </div>
+
+      <div class="summary" id="summary" hidden></div>
+      <div class="results" id="results"></div>
+    </section>
+
+    <div class="ad-slot ad-inline" data-ad="in-content">
+      <span class="ad-label">广告位 · 信息流（自适应）</span>
+    </div>
+
+    <section class="faq">
+      <h2>常见问题</h2>
+      <details open>
+        <summary>转换图片会上传到你们服务器吗？</summary>
+        <p>不会。本工具基于浏览器的 Canvas 技术，所有格式转换都在你本地设备上完成，图片不会被上传、保存或泄露，处理隐私图片也放心。</p>
+      </details>
+      <details>
+        <summary>支持哪些格式互转？</summary>
+        <p>支持 JPG、PNG、WebP 三种常见格式之间的任意互转，例如 PNG 转 JPG、JPG 转 PNG、JPG/PNG 转 WebP、WebP 转 JPG 等，并且可以一次选多张批量转换。</p>
+      </details>
+      <details>
+        <summary>PNG 转 JPG 后，透明背景为什么变成白色了？</summary>
+        <p>因为 JPG 格式本身不支持透明背景，转换时会用白色填充透明区域（避免变成黑色）。如果你需要保留透明背景，请转成 <strong>WebP</strong>，或继续使用 <strong>PNG</strong>。</p>
+      </details>
+      <details>
+        <summary>转换后画质会变差吗？</summary>
+        <p>转成 PNG 是无损的，画质不会损失；转成 JPG / WebP 属于有损，可通过质量滑块调节，90% 以上通常肉眼几乎无差别，同时体积更小。</p>
+      </details>
+      <details>
+        <summary>转成 WebP 有什么好处？</summary>
+        <p>WebP 由 Google 推出，在同等画质下体积通常比 JPG、PNG 更小，很适合网页配图、追求加载速度的场景。如今主流浏览器和手机都已支持。</p>
+      </details>
+    </section>
+
+    <section class="guides">
+      <h2>相关工具与指南</h2>
+      <div class="guide-cards">
+        <a class="guide-card" href="index.html">
+          <div class="gc-title">🗜️ 图片压缩</div>
+          <div class="gc-desc">批量压缩 JPG/PNG/WebP，还能压到指定 KB 大小。</div>
+        </a>
+        <a class="guide-card" href="guide-image-formats.html">
+          <div class="gc-title">JPG / PNG / WebP 区别与选择</div>
+          <div class="gc-desc">三种格式有损无损、透明、体积对比，该用哪种一看就懂。</div>
+        </a>
+        <a class="guide-card" href="guide-png-transparent.html">
+          <div class="gc-title">PNG 透明图转换后变黑/白底？</div>
+          <div class="gc-desc">透明背景在转 JPG 时为什么消失，如何正确保留。</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩 · 图片本地处理，安全无忧</p>
+    </div>
+  </footer>
+
+  <script src="format-convert.js"></script>
+</body>
+</html>

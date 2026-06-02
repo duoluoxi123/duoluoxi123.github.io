@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PNG 透明图压缩/转换后变黑底或白底？原因与解决方法 - 轻图</title>
+  <meta name="description" content="PNG 透明背景图片在压缩或转换格式后，背景变成黑色或白色？本文讲清原因（JPG 不支持透明），并教你如何正确保留透明背景，或按需要换成白底。" />
+  <meta name="keywords" content="png透明背景变黑,png转jpg背景变黑,透明图片压缩变黑底,png背景变白,保留透明背景压缩,png透明" />
+  <link rel="canonical" href="https://qingtu.top/guide-png-transparent.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗜️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9111319388478060" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-logo">🗜️</span><span class="brand-name">轻图<span class="brand-sub">压缩</span></span></a>
+      <nav class="site-nav">
+        <a href="index.html">图片压缩</a>
+        <a href="id-photo.html">证件照</a>
+        <a href="format-convert.html">格式转换</a>
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="page">
+      <h1>PNG 透明图压缩/转换后变黑底或白底？原因与解决方法</h1>
+      <p>把带透明背景的 PNG（比如 logo、贴纸、抠好的图）压缩或转换格式后，发现原本透明的背景变成了<strong>黑色</strong>或<strong>白色</strong>——这是很常见的问题。原因不复杂，解决也很简单。</p>
+
+      <h2>为什么透明背景会变色？</h2>
+      <p>关键在于<strong>目标格式是否支持透明</strong>：</p>
+      <ul>
+        <li><strong>JPG 不支持透明</strong>。一旦把透明 PNG 转成 JPG，透明区域必须被填上某种颜色。如果填充处理不当，就会变成<strong>黑色</strong>；正确做法是填成<strong>白色</strong>。</li>
+        <li><strong>PNG、WebP 支持透明</strong>。转成这两种格式、并正确保留 alpha 通道，背景才会继续透明。</li>
+      </ul>
+      <p>所以“变黑/变白”本质上是：你把图存成了不支持透明的格式（JPG），或者工具在填充背景时用了黑色。</p>
+
+      <h2>解决方法一：要保留透明 → 用 PNG 或 WebP</h2>
+      <p>如果你需要透明背景（用于设计、叠加、网页），<strong>不要转成 JPG</strong>：</p>
+      <ul>
+        <li>继续保存为 <strong>PNG</strong>（无损、透明，最稳妥）。</li>
+        <li>或转成 <strong>WebP</strong>（同样支持透明，体积通常更小）。用 <a href="format-convert.html">格式转换工具</a> 选择 WebP 即可。</li>
+      </ul>
+      <p class="guide-note">提示：如果是为了“把 PNG 压小”，也可以直接压缩成 PNG/WebP 而不改成 JPG，这样透明就不会丢。</p>
+
+      <h2>解决方法二：可以接受白底 → 转 JPG 自动填白</h2>
+      <p>有些场景（如证件照、报名上传）本来就要求白底、且需要 JPG 格式。这时把透明 PNG 转成 JPG 是合理的，重点是<strong>填白而不是填黑</strong>。</p>
+      <p>用 <a href="format-convert.html">轻图格式转换</a> 或 <a href="index.html">压缩工具</a> 转成 JPG 时，会自动给透明区域填上<strong>白色</strong>背景，不会出现变黑的问题。</p>
+
+      <h2>用轻图怎么操作</h2>
+      <ul>
+        <li><strong>想保留透明</strong>：打开 <a href="format-convert.html">格式转换</a> → 选 <strong>WebP</strong> 或 <strong>PNG</strong> → 转换下载。</li>
+        <li><strong>想要白底 JPG</strong>：打开 <a href="format-convert.html">格式转换</a> → 选 <strong>JPG</strong> → 透明处自动填白 → 下载。</li>
+        <li>全程在浏览器本地完成，图片不上传服务器。</li>
+      </ul>
+
+      <h2>小结：按需求选格式</h2>
+      <ul>
+        <li>需要透明（logo、素材、叠加） → <strong>PNG / WebP</strong>。</li>
+        <li>需要白底、要 JPG（证件照、上传） → <strong>JPG（自动填白）</strong>。</li>
+        <li>想体积更小又保留透明 → <strong>WebP</strong>。</li>
+      </ul>
+
+      <p class="guide-related">相关阅读：<a href="guide-image-formats.html">JPG/PNG/WebP 区别与选择</a> · <a href="guide-compress-size.html">如何把图片压缩到指定大小</a></p>
+      <p><a href="format-convert.html">→ 去转换图片格式</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">🗜️ 轻图压缩</div>
+      <nav class="footer-nav">
+        <a href="about.html">关于我们</a>
+        <a href="privacy.html">隐私政策</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> 轻图压缩</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
